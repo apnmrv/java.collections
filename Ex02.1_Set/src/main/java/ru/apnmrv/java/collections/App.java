@@ -12,8 +12,11 @@ import java.util.Set;
  */
 public class App 
 {
+    private static Collection<?> noDubbles;
+
     public static void main( String[] args )
     {
+
         Collection<Integer> cInt = new ArrayList<Integer>();
         Collection<String> cStr = new ArrayList<String>();
 
@@ -34,19 +37,23 @@ public class App
         for (String s:cStr) System.out.printf("%s ", s);
         System.out.println("\n");
 
-        Collection<?> noDubbles = new HashSet<Integer>(cInt);
+        noDubbles = removeDubbles(cInt);
         printCollection(noDubbles);
 
         noDubbles = removeDubbles(cStr);
         printCollection(noDubbles);
 
+//        noDubbles = new HashSet<Integer>(cInt); // Works too
+//        printCollection(noDubbles);
+
     }
 
-    public static <E> Set<E> removeDubbles(Collection<E> cStr) {
+    private static <E> Set<E> removeDubbles(Collection<E> cStr) {
+        System.out.println("No more dubbles!");
         return new HashSet<E>(cStr);
     }
 
-    public static <E> void printCollection(Collection<E> c){
+    private static <E> void printCollection(Collection<E> c){
         for(E el: c) {
             System.out.printf("%s ", el.toString());
         }
