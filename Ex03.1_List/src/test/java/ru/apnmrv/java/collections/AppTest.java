@@ -3,9 +3,9 @@ package ru.apnmrv.java.collections;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import static org.junit.Assert.*;
 
 import java.util.List;
+import ru.apnmrv.java.collections.App;
 
 /**
  * Unit test for simple App.

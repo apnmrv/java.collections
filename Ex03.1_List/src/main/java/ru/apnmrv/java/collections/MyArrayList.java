@@ -10,21 +10,36 @@ public class MyArrayList<T> implements List<T> {
     private T [] arr;
 
     public MyArrayList() {
-        this.arr = (T[]) new Object [10];
+        this.arr = ( T [] ) new Object [10];
     }
 
-    public MyArrayList(T[] arr) {
-        this.arr = arr;
+    public MyArrayList( int capacity ) {
+        this.arr = ( T [] ) new Object [capacity];
     }
+
+    public MyArrayList(Collection<T> c) {
+
+        this.arr = ( T [] ) new Object [c.size()];
+
+        c.toArray(this.arr);
+
+    }
+
+    //@TODO
 
     @Override
     public int size() {
-        return arr.length;
+        int size = 0;
+        while (arr[size].getClass().equals(arr.getClass())){
+            size++;
+            System.out.println(size);
+        }
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return 0 == arr.length ? true : false;
+        return null == arr[0] ? true : false;
     }
 
     @Override
@@ -35,6 +50,7 @@ public class MyArrayList<T> implements List<T> {
         return false;
     }
 
+    // @TODO
     @Override
     public Iterator<T> iterator() {
         return null;
@@ -42,16 +58,27 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        return arr;
+        return this.arr;
     }
 
+    // @TODO
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        for (int i = 0; i < size(); i++) {
+            a[i] = (T1) arr[i];
+        }
+
+        return a;
     }
 
     @Override
     public boolean add(T t) {
+        for (int i = 0; i < arr.length; i++){
+            if (arr [i] == null) {
+                arr [i] = t;
+                return true;
+            }
+        }
         return false;
     }
 
@@ -65,26 +92,31 @@ public class MyArrayList<T> implements List<T> {
         return false;
     }
 
+    //@ TODO
     @Override
     public boolean addAll(Collection<? extends T> c) {
         return false;
     }
 
+    //@ TODO
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         return false;
     }
 
+    //@ TODO
     @Override
     public boolean removeAll(Collection<?> c) {
         return false;
     }
 
+    //@ TODO
     @Override
     public boolean retainAll(Collection<?> c) {
         return false;
     }
 
+    //@ TODO
     @Override
     public void clear() {
 
@@ -92,14 +124,16 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        return arr[index];
     }
 
+    //@ TODO
     @Override
     public T set(int index, T element) {
         return null;
     }
 
+    //@ TODO
     @Override
     public void add(int index, T element) {
 
@@ -110,6 +144,7 @@ public class MyArrayList<T> implements List<T> {
         return null;
     }
 
+    //@ TODO
     @Override
     public int indexOf(Object o) {
         return 0;
@@ -120,6 +155,7 @@ public class MyArrayList<T> implements List<T> {
         return 0;
     }
 
+    //@ TODO
     @Override
     public ListIterator<T> listIterator() {
         return null;
