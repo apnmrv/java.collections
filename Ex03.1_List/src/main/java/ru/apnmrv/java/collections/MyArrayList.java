@@ -1,9 +1,6 @@
 package ru.apnmrv.java.collections;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class MyArrayList<T> implements List<T> {
 
@@ -20,21 +17,17 @@ public class MyArrayList<T> implements List<T> {
     public MyArrayList(Collection<T> c) {
 
         this.arr = ( T [] ) new Object [c.size()];
-
         c.toArray(this.arr);
 
     }
 
-    //@TODO
-
     @Override
     public int size() {
-        int size = 0;
-        while (arr[size].getClass().equals(arr.getClass())){
-            size++;
-            System.out.println(size);
+        int i = 0;
+        for (; i < arr.length; i++) {
+            if (arr[i] == null) break;
         }
-        return size;
+        return i;
     }
 
     @Override
@@ -57,11 +50,10 @@ public class MyArrayList<T> implements List<T> {
     }
 
     @Override
-    public Object[] toArray() {
+    public T [] toArray() {
         return this.arr;
     }
 
-    // @TODO
     @Override
     public <T1> T1[] toArray(T1[] a) {
         for (int i = 0; i < size(); i++) {
@@ -73,18 +65,24 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
-        for (int i = 0; i < arr.length; i++){
-            if (arr [i] == null) {
-                arr [i] = t;
-                return true;
-            }
-        }
-        return false;
+        int i = size();
+        if (arr.length <= i) arr = Arrays.copyOf(arr, i + 10);
+        arr[i] = t;
+        return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        return false;
+        int size = size();
+        for (int i = 0; i < size; i++) {
+            if (o.equals(arr[i])){
+                for (; i < size-1; i++) {
+                    arr[i] = arr[i + 1];
+                }
+                return true;
+            }
+        }
+        return true;
     }
 
     @Override
