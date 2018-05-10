@@ -26,6 +26,7 @@ public class App
 
     private static <E> Set<E> removeDubbles(Collection<E> cStr) {
         System.out.println("No more dublets!");
+        System.out.println("Weird order!");
         return new HashSet<E>(cStr);
     }
 
