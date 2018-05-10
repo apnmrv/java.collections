@@ -3,7 +3,6 @@ package ru.apnmrv.java.collections;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 /**
  * Hello world!
  *
@@ -25,8 +24,12 @@ public class App
     }
 
     private static <E> Set<E> removeDubbles(Collection<E> cStr) {
+<<<<<<< HEAD
         System.out.println("No more dublets!");
         System.out.println("Weird order!");
+=======
+        System.out.println("No more dubblets!");
+>>>>>>> 83276a4fc924a2865a267be968e1dfdaff0a3e02
         return new HashSet<E>(cStr);
     }
 
