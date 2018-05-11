@@ -3,11 +3,8 @@ package ru.apnmrv.java.collections;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.omg.CORBA.Object;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Unit test for simple App.
@@ -32,10 +29,6 @@ public class MyArrayListTest extends TestCase
         return new TestSuite( MyArrayListTest.class );
     }
 
-    /**
-     *
-     */
-
     public void testMyArrayListConstructor() {
 
         List<String> myList = new MyArrayList<>();
@@ -47,10 +40,11 @@ public class MyArrayListTest extends TestCase
 
     public void testMyArrayListSizedConstructor() {
 
-        List<?> myList = new MyArrayList<>(1000);
-        List<?> testList = new ArrayList<>(1000);
+        List<?> myList = new MyArrayList<>(35);
+        List<?> testList = new ArrayList<>(35);
 
         assertEquals(myList.isEmpty(), testList.isEmpty());
+
         assertEquals(myList.size(), testList.size());
 
     }
@@ -66,7 +60,6 @@ public class MyArrayListTest extends TestCase
 
         assertEquals(myList.isEmpty(), testList.isEmpty());
         assertEquals(testList.size(), myList.size());
-
     }
 
     public void testSize(){
@@ -97,13 +90,78 @@ public class MyArrayListTest extends TestCase
 
         myList.add("string");
         testList.add("string");
+
         assertEquals(testList.contains("string"), myList.contains("string"));
+
+        assertEquals(testList.contains("StrangeString"), myList.contains("StrangeString"));
 
     }
 
-    public void testIterator(){}
-
     public void testToArray(){
+        List <String> myList = new MyArrayList<>();
+        List <String> testList = new ArrayList<>();
+
+        for (int i = 0; i < 15; i++) {
+            myList.add(i+"");
+            testList.add(i+"");
+        }
+
+        Object [] myArr = myList.toArray();
+        Object [] testArr = testList.toArray();
+
+        for (int i = 0; i < 15; i++) {
+            assertEquals(testArr[i], myArr[i]);
+        }
+    }
+
+    public void testToSpecifiedArray(){
+        List <String> myList = new MyArrayList<>();
+        List <String> testList = new ArrayList<>();
+        String [] myArr = new String[100];
+        String [] testArr = new String[100];
+
+        for (int i = 0; i < 100; i++) {
+            myList.add(i+"");
+            testList.add(i+"");
+        }
+
+        myList.toArray(myArr);
+        testList.toArray(testArr);
+
+        for (int i = 0; i < 100; i++) {
+
+            assertEquals(testArr[i], myArr[i]);
+
+        }
+    }
+
+    public void testIterator(){
+        List <String> myList = new MyArrayList<>();
+        List <String> testList = new ArrayList<>();
+
+        for (int i = 0; i < 12; i++) {
+            myList.add(i+"");
+            testList.add(i+"");
+        }
+
+        for(Iterator<String> it = myList.iterator(); it.hasNext();){
+            if (it.next().equals("5")) {
+                it.remove();
+            }
+        }
+
+        for(Iterator<String> it = testList.iterator(); it.hasNext();){
+            if (it.next().equals("5")) {
+                it.remove();
+            }
+        }
+
+        for (int i = 0; i < testList.size(); i++) {
+            assertEquals(testList.get(i), myList.get(i));
+        }
+    }
+
+    public void testAdd(){
         List <Integer> myList = new MyArrayList<>();
         List <Integer> testList = new ArrayList<>();
 
@@ -113,9 +171,8 @@ public class MyArrayListTest extends TestCase
             assertEquals(testList.get(i), myList.get(i));
         }
 
-       assertEquals(testList.size(), myList.size());
-       assertEquals(testList.getClass().getComponentType(), myList.getClass().getComponentType());
-
+        assertEquals(testList.size(), myList.size());
+        assertEquals(testList.getClass().getComponentType(), myList.getClass().getComponentType());
     }
 
     public void testRemove(){
@@ -125,16 +182,53 @@ public class MyArrayListTest extends TestCase
         for (int i = 0; i < 11; i++) {
             myList.add(i+"");
             testList.add(i+"");
-            System.out.println(myList.get(i));
         }
 
-        myList.remove("5");
-        testList.remove("5");
-        for (String e : testList) System.out.println(e);
-        for (String e : myList) System.out.println(e);
-//        for (int i = 0; i < 10_000-1; i++) {
-//            assertEquals(testList.get(i), myList.get(i));
-//        }
+        assertEquals(testList.remove((Integer)5), myList.remove((Integer)5));
+
+        assertEquals(testList.remove("String"), myList.remove("String"));
     }
 
+    public void testAddAll(){
+        List <String> myList = new MyArrayList<>();
+        List <String> testList = new ArrayList<>();
+
+        Collection<String> strColl = new LinkedHashSet<>();
+        for (int i = 0; i < 100_000; i++) {
+            strColl.add(i+"");
+        }
+
+        assertEquals(testList.addAll(strColl), myList.addAll(strColl));
+
+        assertEquals(Collections.addAll(testList, "$", "%", "&"),
+                Collections.addAll(myList, "$", "%", "&"));
+    }
+
+    public void testSort(){
+        List <String> testList = new ArrayList<>();
+
+        testList.add("B");
+        testList.add("V");
+        testList.add("C");
+        testList.add("D");
+        testList.add("a");
+        testList.add("S");
+
+        List <String> myList = new MyArrayList<>();
+        myList.add("B");
+        myList.add("V");
+        myList.add("C");
+        myList.add("D");
+        myList.add("a");
+        myList.add("S");
+
+        Collections.sort(testList);
+        Collections.sort(myList);
+
+        for (int i = 0; i < myList.size(); i++) {
+            assertEquals(testList.get(i), myList.get(i));
+        }
+
+        testList.listIterator(6).hasPrevious();
+    }
 }

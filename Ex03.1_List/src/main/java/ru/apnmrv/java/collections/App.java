@@ -9,13 +9,12 @@ public class App
 {
     public static void main( String[] strArgs)
     {
-        System.out.println( "Hello World!" );
 
-        List<?> list = getArrayList(strArgs);
+        List<String> list = getArrayList(strArgs);
 
-        List<?> myArrayList1 = new ArrayList<>();
+        List<String> myArrayList1 = new MyArrayList<>();
 
-        List<?> myArrayList2 = new ArrayList<>(100);
+        List<String> myArrayList2 = new MyArrayList<>(100);
 
         System.out.println("MyArrayList constructor says : " + myArrayList1.size());
 
@@ -25,7 +24,7 @@ public class App
     }
 
     public static <T> List<T> getArrayList(T [] els) {
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<>();
         list.addAll(Arrays.asList(els));
         return list;
     }
